@@ -1,0 +1,48 @@
+{
+  "menu": [
+    {
+      "title": "Oi Fibra Internet",
+      "href": "#titulo",
+      "children": [
+        {
+          "title": "Oi 100 Mega",
+          "href": "#filho1"
+        },
+        {
+          "title": "Oi 200 Mega",
+          "href": "#filho2"
+        },
+        {
+          "title": "Oi 400 Mega",
+          "href": "#filho3"
+        },
+        {
+          "title": "Oi 500 Mega",
+          "href": "#filho4"
+        }
+      ]
+    },
+    {
+      "title": "Oi TV",
+      "href": "#titulo",
+      "children": [
+        {
+          "title": "Oi TV",
+          "href": "#filho1"
+        },
+        {
+          "title": "Oi TV",
+          "href": "#filho2"
+        },
+        {
+          "title": "Oi TV",
+          "href": "#filho3"
+        },
+        {
+          "title": "Oi TV",
+          "href": "#filho4"
+        }
+      ]
+    }
+  ]
+}
