@@ -6,24 +6,21 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     font-weight: 400;
 
+    /* https://colorhunt.co/palette/f7f7f7eeeeee393e46929aab */
+    --white: #f7f7f7;
+    --grey: #eeeeee;
+    --black: #393e46;
+    --cream: #929aab;
+    
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-    /* background-color: #cccccc; */
-
+    color: var(--black);
+    background-color: var(--white);
+    
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-
-    --16px: 1rem;
-    --container: 1152px;
-    --padding: var(--16px);
-    --dropdown-color: #6b7280;
-    --dropdown-text-color: #111827;
-    --navbar-color: #1f2937;
-    --navbar-text-color: #15803d;
   }
 
   * {
@@ -37,16 +34,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
+    color: var(--black);
     text-decoration: none;
   }
 `
 
 export default GlobalStyle
-
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  min-height: 100vh;
-} */

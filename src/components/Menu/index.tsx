@@ -1,82 +1,124 @@
-import menu from './menu.json'
+import { useState, MouseEvent } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
   margin: auto;
+  width: 60%;
   max-width: var(--container);
 `
 const Nav = styled.nav`
+  padding: 32px;
+  min-height: 72px;
+  box-shadow: 0 16px 8px var(--grey);
+`
+
+const Menu = styled.ul`
   display: flex;
-  background-color: var(--navbar-color);
+  gap: 16px;
 `
 
-const DropdownMenu = styled.ul`
-  position: absolute;
-  /* top: -1px; */
-  left: 0;
-  display: none;
-  flex-direction: column;
-  background-color: var(--dropdown-color);
-  padding: var(--padding);
-`
-
-const Wrapper = styled.div`
+const MenuItem = styled.li`
   position: relative;
-  padding-inline: var(--padding);
+  padding-inline: 32px;
 
   &:hover {
-    ${DropdownMenu} {
+    ul {
       display: flex;
-      flex-direction: column;
-      padding: var(--padding);
     }
   }
 `
 
-const MenuItem = styled.div`
-  a {
-    color: var(--navbar-text-color);
-  }
-  padding: var(--padding);
+const DropdownMenu = styled.ul`
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 16px;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 8px 8px var(--grey);
 `
 
 const DropdownMenuItem = styled.li`
-  a {
-    color: var(--dropdown-text-color);
-  }
+  width: 100%;
+  text-align: center;
+  padding: 8px 16px;
 
-  & :hover {
-    background-color: #cccccc;
+  &:hover {
+    background-color: var(--grey);
   }
 `
 
-export function Navbar() {
+interface MenuItem {
+  title: string
+  href: string
+  children: {
+    title: string
+    href: string
+  }[]
+}
+interface NavbarProps {
+  menuItems: MenuItem[]
+}
+
+export function Navbar({ menuItems }: NavbarProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
+  function handleMouseOver() {
+    setIsDropdownOpen(true)
+  }
+
+  function handleMouseLeave() {
+    setIsDropdownOpen(false)
+  }
+
+  function handleClick(e: MouseEvent<HTMLAnchorElement>, href: string) {
+    e.preventDefault()
+    window.location.href = href
+  }
+
   return (
-    <Container>
-      <Nav>
-        {menu.menu.map((menuItem, index) => {
-          return (
-            <Wrapper key={index}>
-              <MenuItem>
-                <a href={menuItem.href} target="_blank">
+    <Nav>
+      <Container>
+        <Menu>
+          {menuItems.map((menuItem, index) => {
+            return (
+              <MenuItem
+                key={index}
+                onMouseOver={handleMouseOver}
+                onMouseLeave={handleMouseLeave}
+              >
+                <a
+                  href={menuItem.href}
+                  onClick={(e) => handleClick(e, menuItem.href)}
+                >
                   {menuItem.title}
                 </a>
+                {menuItem.children && isDropdownOpen && (
+                  <DropdownMenu>
+                    {menuItem.children.map((children, index) => {
+                      return (
+                        <DropdownMenuItem key={index}>
+                          <a
+                            href={children.href}
+                            onClick={(e) => handleClick(e, children.href)}
+                          >
+                            {children.title}
+                          </a>
+                        </DropdownMenuItem>
+                      )
+                    })}
+                  </DropdownMenu>
+                )}
               </MenuItem>
-              <DropdownMenu>
-                {menuItem.children.map((children, index) => {
-                  return (
-                    <DropdownMenuItem key={index}>
-                      <a href={children.href} target="_blank">
-                        {children.title}
-                      </a>
-                    </DropdownMenuItem>
-                  )
-                })}
-              </DropdownMenu>
-            </Wrapper>
-          )
-        })}
-      </Nav>
-    </Container>
+            )
+          })}
+        </Menu>
+      </Container>
+    </Nav>
   )
 }
